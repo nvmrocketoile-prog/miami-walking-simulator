@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#120b20">
+  <meta name="description" content="Téléchargez Miami Walking Simulator via torrent ou en archive ZIP pour Windows.">
+  <title>MIAMI WALKING SIMULATOR</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #10091a;
+      --ink: #fff5fb;
+      --muted: #cebbd8;
+      --pink: #ff70b8;
+      --cyan: #71f2f1;
+      --mono: Consolas, "Courier New", monospace;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: radial-gradient(ellipse at 50% 45%, #271034, transparent 64%), var(--bg);
+      font: 1rem/1.55 "Segoe UI", Arial, sans-serif;
+    }
+    h1, h2, h3, p, dl, dd { margin: 0; }
+    .wrap { width: min(100% - 3rem, 68rem); margin-inline: auto; }
+    .hero {
+      position: relative;
+      isolation: isolate;
+      display: grid;
+      place-items: center;
+      min-height: clamp(27rem, 64vw, 38rem);
+      padding: 3rem 1rem 6.5rem;
+      overflow: hidden;
+      text-align: center;
+      background: radial-gradient(ellipse at 50% 65%, #922b71, #251035 50%, var(--bg) 80%);
+    }
+    .hero::before, .hero::after {
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      content: "";
+    }
+    .hero::before {
+      inset: -10px;
+      background: url("miami.webp") center 55% / cover no-repeat;
+      filter: blur(5px);
+    }
+    .hero::after {
+      background:
+        linear-gradient(180deg, #160a26aa, #1c0b2e28 52%, #10091a00 68%, var(--bg)),
+        radial-gradient(ellipse at 50% 46%, #250b3a9e 0%, transparent 60%);
+    }
+    .motion-toggle {
+      display: none;
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      min-height: 2.75rem;
+      padding: .45rem .8rem;
+      border: 1px solid #bc7ea8;
+      border-radius: .4rem;
+      background: #160a26e8;
+      color: var(--ink);
+      font: inherit;
+      font-size: .875rem;
+      cursor: pointer;
+    }
+    .motion-toggle:hover { background: #3e1c47; }
+    @media (prefers-reduced-motion: no-preference) {
+      .hero.is-animated::before { background-image: url("miami-animated.gif"), url("miami.webp"); }
+      .motion-toggle:not([hidden]) { display: block; }
+    }
+    h1 {
+      display: grid;
+      justify-items: center;
+      text-transform: uppercase;
+      text-shadow: 0 4px 14px #160723, 0 0 36px #13051c;
+    }
+    .miami {
+      font: italic 900 clamp(4.8rem, 17vw, 12.25rem) / .86 "Arial Black", "Segoe UI", sans-serif;
+      letter-spacing: -.075em;
+      padding-inline: .04em .12em;
+      color: #fff1fb;
+      text-shadow: .025em .035em 0 #82225f, .047em .065em 0 #42134f, 0 0 .38em #ff55ad99;
+    }
+    .simulator {
+      margin-top: 1.15rem;
+      font: 700 clamp(.85rem, 3.3vw, 2rem) / 1.16 var(--mono);
+      letter-spacing: .19em;
+      color: #ffdcf1;
+      padding-left: .19em;
+    }
+    .downloads { position: relative; margin-top: -4.65rem; padding-bottom: 3rem; }
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: .95rem;
+      font: 700 .9rem/1.35 var(--mono);
+      letter-spacing: .18em;
+      text-transform: uppercase;
+    }
+    .section-title::after { content: ""; flex: 1; height: 1px; background: linear-gradient(90deg, #9b4d93, #431c55); }
+    .options { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+    .option {
+      --accent: var(--cyan);
+      --edge: #417b87;
+      --surface: #142333;
+      display: flex;
+      align-items: flex-start;
+      flex-direction: column;
+      padding: clamp(1.2rem, 3vw, 1.75rem);
+      background: linear-gradient(145deg, var(--surface), #1c1029 75%);
+      border: 1px solid var(--edge);
+      border-top: 2px solid var(--accent);
+      border-radius: .75rem;
+      box-shadow: 0 .9rem 2rem #08030e55;
+    }
+    .option.zip { --accent: var(--pink); --edge: #974675; --surface: #32182f; }
+    .option h3 { font-size: clamp(1.4rem, 2.8vw, 1.9rem); line-height: 1.2; }
+    .option p { margin-top: .6rem; color: var(--muted); }
+    .option p strong { color: var(--ink); }
+    .password {
+      display: inline-block;
+      padding: .1em .45em;
+      border: 1px solid #9a5381;
+      border-radius: .25rem;
+      color: #ffd0eb;
+      background: #130b1c;
+      font: 700 .9rem/1.45 var(--mono);
+      user-select: all;
+    }
+    .action { width: 100%; margin-top: auto; padding-top: 1.3rem; }
+    .download {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 3.05rem;
+      padding: .6rem 1rem;
+      border: 1px solid transparent;
+      border-radius: .4rem;
+      background: var(--accent);
+      color: #160d21;
+      text-decoration: none;
+      text-align: center;
+      font-weight: 750;
+      transition: background-color 160ms, box-shadow 160ms;
+    }
+    .download:hover { background: #fff2fb; box-shadow: 0 0 1.15rem var(--accent); }
+    :focus-visible { outline: 2px solid white; outline-offset: 4px; }
+    .installation, .integrity {
+      margin-top: 1.35rem;
+      padding: 1.15rem clamp(1.2rem, 3vw, 1.75rem);
+      border: 1px solid #50335d;
+      border-radius: .65rem;
+      background: #180e24;
+    }
+    .installation h2, .integrity h2 { color: var(--ink); font-size: 1rem; margin-bottom: .45rem; }
+    .installation ol { margin: 0; padding-left: 1.5rem; color: var(--muted); }
+    .installation li + li { margin-top: .35rem; }
+    .installation li::marker { color: var(--cyan); font-weight: 700; }
+    .hash {
+      display: grid;
+      grid-template-columns: 8.2rem minmax(0, 1fr);
+      gap: .25rem 1rem;
+      padding-block: .55rem;
+      font: .875rem/1.45 var(--mono);
+    }
+    .hash + .hash { border-top: 1px solid #50335d; }
+    .hash dt { color: #ffb0d9; }
+    .hash dd { color: var(--muted); overflow-wrap: anywhere; user-select: all; }
+    @media (max-width: 41rem) {
+      .wrap { width: calc(100% - 2rem); }
+      .hero { min-height: clamp(21rem, 85vw, 29rem); padding-bottom: 4.6rem; }
+      .hero::before { background-position: center 51%; }
+      .downloads { margin-top: -3.25rem; padding-bottom: 1.75rem; }
+      .options { grid-template-columns: 1fr; }
+      .hash { grid-template-columns: minmax(0, 1fr); }
+    }
+    @media (prefers-reduced-motion: reduce) { .download { transition: none; } }
+  </style>
+</head>
+<body>
+  <main>
+    <header class="hero">
+      <h1><span class="miami">MIAMI</span> <span class="simulator">WALKING SIMULATOR</span></h1>
+      <button class="motion-toggle" type="button" hidden>Mettre le fond en pause</button>
+    </header>
+
+    <div class="wrap downloads">
+      <section aria-labelledby="download-title">
+        <h2 class="section-title" id="download-title">Téléchargements</h2>
+        <div class="options">
+          <article class="option">
+            <h3>Torrent</h3>
+            <p>Ouvre le fichier torrent dans <strong>qBittorrent</strong> ou un autre client BitTorrent pour télécharger les fichiers du jeu.</p>
+            <div class="action">
+              <a class="download" href="https://imgur.gg/f/p4Y7gMF" target="_blank" rel="noopener noreferrer">Télécharger le torrent</a>
+            </div>
+          </article>
+          <article class="option zip">
+            <h3>Exécutable Windows</h3>
+            <p>Extrais le ZIP avec le mot de passe <code class="password">thankyoucyberleek</code>.</p>
+            <div class="action">
+              <a class="download" href="https://imgur.gg/f/yLmVPxv" target="_blank" rel="noopener noreferrer">Télécharger le ZIP (.exe)</a>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="installation" aria-labelledby="installation-title">
+        <h2 id="installation-title">Instructions d’installation</h2>
+        <ol>
+          <li>Télécharge les fichiers du jeu via le torrent et extrais l’exécutable de l’archive ZIP.</li>
+          <li>Place l’exécutable dans le dossier qui contient les fichiers téléchargés via le torrent.</li>
+        </ol>
+      </section>
+
+      <section class="integrity" aria-labelledby="integrity-title">
+        <h2 id="integrity-title">Vérification des fichiers</h2>
+        <dl>
+          <div class="hash">
+            <dt>ZIP SHA-256</dt>
+            <dd><code>7545a2f7fb4b399cf8850987f087ed9a4d8499ddb6d6c2d642fd60c27f569730</code></dd>
+          </div>
+          <div class="hash">
+            <dt>EXE SHA-256</dt>
+            <dd><code>e95020b2fa4a721db3df59fdecf75621730ac559d8835252f6c3b658d5a08993</code></dd>
+          </div>
+        </dl>
+      </section>
+    </div>
+  </main>
+  <script>
+    const motionToggle = document.querySelector(".motion-toggle");
+    const hero = motionToggle.closest(".hero");
+
+    hero.classList.add("is-animated");
+    motionToggle.hidden = false;
+    motionToggle.addEventListener("click", () => {
+      const isAnimated = hero.classList.toggle("is-animated");
+      motionToggle.textContent = isAnimated ? "Mettre le fond en pause" : "Animer le fond";
+    });
+  </script>
+</body>
+</html>
